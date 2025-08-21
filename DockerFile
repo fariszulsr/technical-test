@@ -1,0 +1,23 @@
+# 1. Base image Node.js
+FROM node:20-alpine
+
+# 2. Set working directory
+WORKDIR /app
+
+# 3. Copy package.json dan package-lock.json
+COPY package*.json ./
+
+# 4. Install dependencies
+RUN npm install
+
+# 5. Copy seluruh project
+COPY . .
+
+# 6. Build Nuxt 3 untuk production
+RUN npm run build
+
+# 7. Expose port Nuxt (default 3000)
+EXPOSE 3000
+
+# 8. Jalankan Nuxt 3
+CMD ["npm", "run", "preview"]
